@@ -1,0 +1,59 @@
+import React from "react";
+import { useState } from "react";
+
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errmsg, setErrMsg] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (email === "john@mail.com" && password === "changeme") {
+      localStorage.setItem(
+        "access_token",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTY5NTYzMTk0MiwiZXhwIjoxNjk3MzU5OTQyfQ.YnUpMAGeMN7TmAZV_tIy1sMb8Cg9G6H0CHjVJyNhy28"
+      );
+      console.log("Authentication successful");
+    } else {
+      setErrMsg("Authentication failed. Please check your email and password.");
+      console.log("Authentication failed");
+    }
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center text-center justify-center p-24 gap-5 rounded-lg shadow-lg bg-slate-800 text-white w-2/4 m-auto"
+    >
+      <div className="flex flex-col justify-center w-full">
+        <label className="flex justify-start text-lg font-bold tracking-wide">
+          Email
+        </label>
+        <input
+          type="email"
+          className=" border rounded-md text-black p-2 outline-none"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="flex flex-col justify-center w-full ">
+        <label className="flex justify-start text-lg font-bold tracking-wide">
+          Password
+        </label>
+        <input
+          type="password"
+          className="border rounded-md text-black  p-2 outline-none"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
+      <button
+        type="submit"
+        className=" border rounded-md mt-8 w-28 bg-slate-600"
+      >
+        Login
+      </button>
+    </form>
+  );
+};
+
+export default Login;
