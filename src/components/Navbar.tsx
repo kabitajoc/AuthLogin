@@ -7,8 +7,8 @@ const Navbar = () => {
       <li text-lg font-bold>
         <NavLink
           className={() =>
-            `block py-2 pr-4 pl-3 duration-200 border-b  border-green-100 hover:bg-grey-50   hover:text-orange-700  
-            }`
+            `block py-2 pr-4 pl-3 duration-200 border-b 
+            border-green-100 hover:bg-grey-50  hover:text-orange-700  `
           }
           to="/"
         >
@@ -30,7 +30,7 @@ const Navbar = () => {
         <NavLink
           to="/dashboard"
           className={() =>
-            `block py-2 pr-4 pl-3 duration-200 border-b  border-green-100 hover:bg-grey-50
+            `block py-2 pr-4 pl-3 duration-200  border-b  border-green-100 hover:bg-grey-50
             lg:hover:bg-transparent lg:border-0 hover:text-orange-700  lg:p-0`
           }
         >

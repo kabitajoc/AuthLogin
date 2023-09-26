@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errmsg, setErrMsg] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+interface LoginProps {}
+
+const Login: React.FC<LoginProps> = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errmsg, setErrMsg] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -19,7 +21,6 @@ const Login = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // "Author": 'Bearer etkuysa'
           },
           body: JSON.stringify({ email, password }),
         }
@@ -34,7 +35,6 @@ const Login = () => {
         setSuccessMessage("Authentication successful");
 
         navigate("/dashboard");
-        // localStorage.removeItem("access_token");
       } else {
         setErrMsg(
           "Authentication failed. Please check your email and password."

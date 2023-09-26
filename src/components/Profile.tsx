@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Login from "../pages/Login";
+
+interface ProfileData {
+  name: string;
+  email: string;
+}
+
 function Profile() {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<ProfileData | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    fetch("https://api.escuelajs.co/api/v1/auth/profile",
-    {
+    const token = localStorage.getItem("access_token");
+    fetch("https://api.escuelajs.co/api/v1/auth/profile", {
       method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Author": 'Bearer ,localStorage.getItem("access_token")'
-          }
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((response) => {
         if (!response.ok) {
@@ -19,15 +24,14 @@ function Profile() {
         }
         return response.json();
       })
-      .then((data) => {
-        console.log(data);
-        setData(data);
+      .then((profileData: ProfileData) => {
+        console.log(profileData);
+        setData(profileData);
       })
-      .catch((error) => {
-       
-        setError(error);
+      .catch((err: Error) => {
+        setError(err);
       });
-  }, []); 
+  }, []);
 
   return (
     <div>
