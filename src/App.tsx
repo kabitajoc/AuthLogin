@@ -2,8 +2,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
-
-import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (

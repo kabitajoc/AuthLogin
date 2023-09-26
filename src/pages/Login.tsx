@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -7,7 +7,7 @@ const Login = () => {
   const [errmsg, setErrMsg] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,6 +19,7 @@ const Login = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            // "Author": 'Bearer etkuysa'
           },
           body: JSON.stringify({ email, password }),
         }
@@ -26,13 +27,14 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("access_token", "YourAccessTokenHere");
+        console.log(data);
+        localStorage.setItem("access_token", data.access_token);
 
         setErrMsg("");
         setSuccessMessage("Authentication successful");
 
-        // Navigate to the /dashboard route
         navigate("/dashboard");
+        // localStorage.removeItem("access_token");
       } else {
         setErrMsg(
           "Authentication failed. Please check your email and password."

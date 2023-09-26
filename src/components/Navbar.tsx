@@ -37,6 +37,17 @@ const Navbar = () => {
           Dashboard
         </NavLink>
       </li>
+      <li className="  text-lg font-bold ">
+        <NavLink
+          to="/profile"
+          className={() =>
+            `block py-2 pr-4 pl-3 duration-200 border-b 
+              border-green-100 hover:bg-grey-50  hover:text-orange-700  `
+          }
+        >
+          Profile
+        </NavLink>
+      </li>
     </div>
   );
 };
