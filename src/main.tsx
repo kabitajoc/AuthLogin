@@ -13,6 +13,7 @@ import Login from "./pages/Login.tsx";
 import Dashboard from "./components/Dashboard.tsx";
 import PrivateRoute from "./components/PrivateRoute.tsx";
 import Profile from "./components/Profile.tsx";
+import Logout from "./components/Logout.tsx";
 
 // const router = createBrowserRouter([
 //   {
@@ -56,6 +57,14 @@ const router = createBrowserRouter(
           </PrivateRoute>
         }
       />
+      {/* <Route
+        path="logout"
+        element={
+          <PrivateRoute>
+            <Logout />
+          </PrivateRoute>
+        }
+      /> */}
     </Route>
   )
 );

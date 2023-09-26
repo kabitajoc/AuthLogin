@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-
+import img1 from "../Images/waterdrops.jpg";
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = () => {
@@ -48,41 +48,46 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col items-center text-center justify-center p-8 gap-5 rounded-lg shadow-lg bg-slate-800 text-white w-2/4 m-auto"
-    >
-      <div className="flex flex-col justify-center w-full">
-        <label className="flex justify-start text-lg font-bold tracking-wide">
-          Email
-        </label>
-        <input
-          type="email"
-          className="border rounded-md text-black p-2 outline-none"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <div className="flex relative">
+      <div className=" w-full flex  absolute opacity-80">
+        <img className=" h-full" src={img1} alt="colorful" />
       </div>
-      <div className="flex flex-col justify-center w-full">
-        <label className="flex justify-start text-lg font-bold tracking-wide">
-          Password
-        </label>
-        <input
-          type="password"
-          className="border rounded-md text-black p-2 outline-none"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button
-        type="submit"
-        className="border rounded-md mt-8 w-28 bg-slate-600"
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center text-center justify-center p-8 gap-5 rounded-lg shadow-lg bg-slate-800 text-white w-1/2  m-auto absolute h-screen right-0 bg-gradient-to-r from-indigo-500"
       >
-        Login
-      </button>
-      {errmsg && <p className="text-red-500 mt-4">{errmsg}</p>}
-      {successMessage && (
-        <p className="text-green-500 mt-4">{successMessage}</p>
-      )}
-    </form>
+        <div className="flex flex-col justify-center w-full">
+          <label className="flex justify-start text-lg font-bold tracking-wide">
+            Email
+          </label>
+          <input
+            type="email"
+            className="border rounded-md text-black p-2 outline-none"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col justify-center w-full">
+          <label className="flex justify-start text-lg font-bold tracking-wide">
+            Password
+          </label>
+          <input
+            type="password"
+            className="border rounded-md text-black p-2 outline-none"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="border rounded-md mt-8 w-28 bg-slate-600"
+        >
+          Login
+        </button>
+        {errmsg && <p className="text-red-500 mt-4">{errmsg}</p>}
+        {successMessage && (
+          <p className="text-green-500 mt-4">{successMessage}</p>
+        )}
+      </form>
+    </div>
   );
 };
 

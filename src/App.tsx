@@ -7,7 +7,7 @@ import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <>
-      <div className="flex flex-col gap-10 bg-slate-500 h-screen rounded-lg">
+      <div className="flex flex-col  bg-slate-500  rounded-lg">
         <Navbar />
         <Outlet />
       </div>

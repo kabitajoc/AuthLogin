@@ -1,9 +1,14 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+
+    navigate("/login");
+  };
   return (
-    <div className=" h-16 rounded-lg bg-slate-800 flex  pl-4 text-white list-none gap-8 items-center ">
+    <div className=" w-full  h-16 rounded-lg bg-slate-800 flex  pl-4 text-white list-none gap-8 items-center ">
       <li text-lg font-bold>
         <NavLink
           className={() =>
@@ -48,6 +53,8 @@ const Navbar = () => {
           Profile
         </NavLink>
       </li>
+
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
