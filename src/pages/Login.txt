@@ -1,0 +1,140 @@
+import React, { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import img1 from "../Images/waterdrops.jpg";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import validationSchema from "./validationSchema";
+
+interface LoginProps {}
+interface FormValues {
+  email: string;
+  password: string;
+}
+const initialValues: FormValues = { email: "", password: "" };
+
+const Login: React.FC<LoginProps> = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errmsg, setErrMsg] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "https://api.escuelajs.co/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        localStorage.setItem("access_token", data.access_token);
+
+        setErrMsg("");
+        setSuccessMessage("Authentication successful");
+
+        navigate("/dashboard");
+      } else {
+        setErrMsg(
+          "Authentication failed. Please check your email and password."
+        );
+
+        setSuccessMessage("");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  return (
+    <div className="flex relative">
+      <div className=" w-full flex  absolute ">
+        <img className=" h-full opacity-80" src={img1} alt="colorful" />
+        {/* <h1 className="absolute left-1/2 text-3xl font-extrabold p-4 leading-4">
+          Login
+        </h1> */}
+      </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {(formik) => (
+          <Form
+            className="flex flex-col items-center text-center justify-center p-8 gap-5 rounded-2xl shadow-lg bg-slate-800 text-white w-1/2 m-auto absolute   bg-gradient-to-r from-white-500 bg-opacity-30  translate-x-1/2 translate-y-36"
+            onSubmit={formik.handleSubmit}
+          >
+            <h1 className=" flex-col text-4xl text-white font-bold tracking-wide mb-2 leading-10 h-12">
+              Login
+            </h1>
+            <div className="flex flex-col gap-4 justify-center w-full">
+              <label className="flex justify-start text-lg font-bold tracking-wide">
+                Email
+              </label>
+              <Field
+                type="email"
+                name="email"
+                className={`border-slate-600 rounded-md text-white p-2 bg-slate-800 bg-opacity-50  outline-none ${
+                  formik.touched.email && formik.errors.email
+                    ? "border-red-500"
+                    : ""
+                }`}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-500 mt-2"
+              />
+            </div>
+            <div className="flex flex-col gap-4 justify-center w-full">
+              <label className="flex justify-start text-lg font-bold tracking-wide">
+                Password
+              </label>
+              <Field
+                type="password"
+                name="password"
+                className={` border-slate-600 rounded-md text-white bg-slate-800 bg-opacity-50 p-2 outline-none ${
+                  formik.touched.password && formik.errors.password
+                    ? "border-red-500"
+                    : ""
+                }`}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="text-red-500 mt-2"
+              />
+            </div>
+            {/* <label>
+              <Field type="checkbox">Remember me</Field>
+            </label> */}
+            <span className=" relative right-0">Forget password?</span>
+
+            <button
+              type="submit"
+              className="border-slate-600 rounded-md mt-8 w-full h-10 bg-slate-800 font-bold tracking-wide"
+            >
+              Login
+            </button>
+            <p className="">Don't have an account? Register </p>
+            {errmsg && <p className="text-red-500 mt-4">{errmsg}</p>}
+            {successMessage && (
+              <p className="text-green-500 mt-4">{successMessage}</p>
+            )}
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
+
+export default Login;

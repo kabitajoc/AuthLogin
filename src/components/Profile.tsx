@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 interface ProfileData {
   name: string;
@@ -10,7 +11,7 @@ function Profile() {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
+    const token = Cookies.get("access_token");
     fetch("https://api.escuelajs.co/api/v1/auth/profile", {
       method: "GET",
       headers: {
@@ -34,13 +35,13 @@ function Profile() {
   }, []);
 
   return (
-    <div>
+    <div className="">
       {error ? (
         <p>Error: {error.message}</p>
       ) : (
-        <div>
+        <div className=" bg-slate-700 h-screen flex justify-center items-center text-white">
           {data ? (
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <pre className="  ">{JSON.stringify(data, null, 2)}</pre>
           ) : (
             <p>Loading...</p>
           )}
